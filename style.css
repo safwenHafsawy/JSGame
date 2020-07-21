@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap');
+
+body{
+    background-color: #5aa17f;
+}
+
+h1{
+    font-family: 'Fontdiner Swanky', cursive;
+    text-align: center;
+    margin: 100px;
+    color: #5aa17f;
+}
+
+#gameScreen{
+    background-color: #0a3a2a;
+    margin: 5px;
+    border: 5px solid whitesmoke;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+#gameBall{  
+    display: none;
+}
+
+#goal{
+    display: none;
+}
