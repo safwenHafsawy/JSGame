@@ -14,7 +14,7 @@ export default class Game{
 
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
-        this.pitchWidth = 700;
+        this.pitchWidth = 650;
 
         this.gameState = GAMESTATE.MENU;
         this.paddle = new Paddle(this, {x : this.pitchWidth / 2 , y : this.gameHeight - 50 }, "blue");
@@ -61,17 +61,17 @@ export default class Game{
         //drawing the pause screen 
         if(this.gameState === GAMESTATE.PAUSED){
             ctx.rect(0, 0 ,800, 600);
-            ctx.fillStyle = "whitesmoke"
+            ctx.fillStyle = "#17202A"
             ctx.fill();
             ctx.font = "50px courier";
-            ctx.fillStyle = "Black";
+            ctx.fillStyle = "whitesmoke";
             ctx.textAlign = " center";
             ctx.fillText("Game Paused", this.gameWidth / 2 , this.gameHeight /2 );
         }
         //drawing the menu screen
         if(this.gameState === GAMESTATE.MENU){
             ctx.rect(0, 0 ,800, 600);
-            ctx.fillStyle = "#641E16"
+            ctx.fillStyle = "#17202A"
             ctx.fill();
             ctx.font = "30px courier";
             ctx.fillStyle = "Whitesmoke";

@@ -10,8 +10,8 @@ export default class Ball {
 
         this.ballImg = document.getElementById("gameBall");
 
-        this.position = { x: 10, y: 10};
-        this.speed = { x: 8, y:5};
+        this.position = { x: 35, y: 10};
+        this.speed = { x: 10, y:7};
         this.size = 16;
 
         this.firstPlayerScore = -1;
@@ -28,7 +28,7 @@ export default class Ball {
             y : -this.speed.y
         };
         this.position = {
-            x : 10,
+            x : 35,
             y : 10
         };
     };
@@ -40,7 +40,7 @@ export default class Ball {
             y : -this.speed.y
         };
         this.position = {
-            x : 10,
+            x : 35,
             y : 550 
         };
     }
@@ -78,7 +78,7 @@ export default class Ball {
         this.position.y += this.speed.y;
         
         //collision with left and right wall
-        if(this.position.x + this.size > this.pitchWidth || this.position.x < 0 ){
+        if(this.position.x + this.size > this.pitchWidth || this.position.x < 30 ){
             this.speed.x = -this.speed.x;
         }
         //collision with top and bottom wall

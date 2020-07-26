@@ -6,7 +6,7 @@ export default class Paddle {
      this.pitchWidth = game.pitchWidth;
 
      //paddle height and width
-     this.width = 150;
+     this.width = 120;
      this.height = 20;
 
      //paddle movement
