@@ -1,20 +1,22 @@
 //detecting bottom and Top collision
-export function detectCollisionWithPaddle(ball, gameObject){
+export function detectCollision(ball, gameOject){
     //ball 
     let topOfBall = ball.position.y;
     let bottomOfBall = ball.position.y + ball.size;
-    //gameObject
-    let topOfgameObject = gameObject.position.y;
-    let bottomOfgameObject = gameObject.position.y + gameObject.height;
-    let leftOfgameObject = gameObject.position.x;
-    let rightOfgameObject = gameObject.position.x + gameObject.width;
-    //checking gameOject
+    let leftOfBall = ball.position.x;
+    let rightOfBall = ball.position.x + ball.size;
+    //gameOject
+    let topOfgameObject = gameOject.position.y;
+    let bottomOfgameObject = gameOject.position.y + gameOject.height;
+    let leftOfgameObject = gameOject.position.x;
+    let rightOfgameObject = gameOject.position.x + gameOject.width;
+
+
     if(
         topOfBall <= bottomOfgameObject &&
         bottomOfBall >= topOfgameObject &&
-        ball.position.x  >= leftOfgameObject &&
-        ball.position.x + ball.size <= rightOfgameObject
-         
+        leftOfBall >= leftOfgameObject &&
+        rightOfBall <= rightOfgameObject
     ){
         return true;
     }else{
@@ -23,25 +25,5 @@ export function detectCollisionWithPaddle(ball, gameObject){
 
 };
 
-export function detectCollisionWithGoal(ball, gameObject){
-     //ball 
-     let topOfBall = ball.position.y;
-     let bottomOfBall = ball.position.y;
-     //gameObject
-     let topOfgameObject = gameObject.position.y;
-     let bottomOfgameObject = gameObject.position.y + gameObject.height - 25;
-     let leftOfgameObject = gameObject.position.x - 25;
-     let rightOfgameObject = gameObject.position.x + gameObject.width - 25 ;
-     //checking gameOject
-     if(
-         topOfBall < bottomOfgameObject &&
-         bottomOfBall > topOfgameObject &&
-         ball.position.x  > leftOfgameObject &&
-         ball.position.x  < rightOfgameObject
-          
-     ){
-         return true;
-     }else{
-         return false;
-     }
-}
+
+

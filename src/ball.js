@@ -1,4 +1,4 @@
-import { detectCollisionWithPaddle, detectCollisionWithGoal } from './detectCollision.js';
+import { detectCollision } from './detectCollision.js';
 
 export default class Ball {
     constructor(game){
@@ -6,24 +6,45 @@ export default class Ball {
         this.game = game;
         this.gameWidth = game.gameWidth;
         this.gameHeight = game.gameHeight;
+        this.pitchWidth = game.pitchWidth;
 
         this.ballImg = document.getElementById("gameBall");
 
-        this.position = { x: this.gameWidth / 2, y:this.gameHeight / 2};
-        this.speed = { x: 7, y:4};
+        this.position = { x: 5, y: 5};
+        this.speed = { x: 8, y:5};
         this.size = 25;
 
-        this.score = 0;
+        this.firstPlayerScore = 0;
+        this.secondPlayerScore = 0;
 
-        this.rest();
+        this.rest1();
+        this.rest2();
     }
 
-    rest(){
+    //rest if player one scores
+    rest1(){
         this.speed = {
-            x: -this.speed.x,
+            x : -this.speed.x,
             y : -this.speed.y
-        }
+        };
+        this.position = {
+            x : 10,
+            y : 10
+        };
+    };
+
+    //rest if player two scores
+    rest2(){
+        this.speed = {
+            x : -this.speed.x,
+            y : -this.speed.y
+        };
+        this.position = {
+            x : 10,
+            y : 550 
+        };
     }
+
 
     draw(ctx){
         ctx.drawImage(
@@ -33,6 +54,23 @@ export default class Ball {
             this.size, 
             this.size
         );
+        
+        ctx.rect(700, 0, 700, 600);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+        //player 1 scoresheet drawing 
+ 
+        ctx.font ="60px Courier";
+        ctx.fillStyle = "Black";
+        ctx.textAlign = "center";
+        ctx.fillText(this.firstPlayerScore, 750, 250);
+
+        //player 2 scoresheet drawing
+
+        ctx.font ="60px Courier";
+        ctx.fillStyle = "Black";
+        ctx.textAlign = "center";
+        ctx.fillText(this.secondPlayerScore, 750, 390);
     };
 
     update(dt){
@@ -40,7 +78,7 @@ export default class Ball {
         this.position.y += this.speed.y;
         
         //collision with left and right borders
-        if(this.position.x + this.size > this.gameWidth || this.position.x < 0 ){
+        if(this.position.x + this.size > this.pitchWidth || this.position.x < 0 ){
             this.speed.x = -this.speed.x;
         }
         //collision with top and bottom borders
@@ -48,16 +86,27 @@ export default class Ball {
             this.speed.y = -this.speed.y;
         }
         //collision with paddle
-            if( detectCollisionWithPaddle(this, this.game.paddle) === 1 ){
-                this.speed = {
-                    x: -this.speed.x,
-                    y : -this.speed.y 
-                }
-            }
-        //collision with goal
-            if( detectCollisionWithGoal(this, this.game.goal)){
-                this.score ++;
-                this.rest();
-            }    
+        if( detectCollision(this, this.game.paddle) ){
+            this.speed.y = -this.speed.y;
+             
+        }
+        if( detectCollision(this, this.game.secondPaddle) ){
+            this.speed.y = -this.speed.y;
+        }
+        //collision with goals
+        if( detectCollision(this, this.game.firstGoal)){
+            this.secondPlayerScore ++;
+            this.rest2();
+        }
+        if( detectCollision(this, this.game.secondGoal)){
+            this.firstPlayerScore ++;
+            this.rest1();
+        }
+        if(this.secondPlayerScore === 5 ){
+            this.game.playerTwoWin = true;
+        }else if(this.firstPlayerScore ===5){
+            this.game.playerOneWin = true;
+        }
+
     }
 }
