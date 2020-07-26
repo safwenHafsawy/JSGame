@@ -10,11 +10,11 @@ export default class Ball {
 
         this.ballImg = document.getElementById("gameBall");
 
-        this.position = { x: 5, y: 5};
+        this.position = { x: 10, y: 10};
         this.speed = { x: 8, y:5};
-        this.size = 25;
+        this.size = 16;
 
-        this.firstPlayerScore = 0;
+        this.firstPlayerScore = -1;
         this.secondPlayerScore = 0;
 
         this.rest1();
@@ -77,36 +77,39 @@ export default class Ball {
         this.position.x += this.speed. x;
         this.position.y += this.speed.y;
         
-        //collision with left and right borders
+        //collision with left and right wall
         if(this.position.x + this.size > this.pitchWidth || this.position.x < 0 ){
             this.speed.x = -this.speed.x;
         }
-        //collision with top and bottom borders
-        if(this.position.y + this.size > this.gameHeight || this.position.y < 0 ){
+        //collision with top and bottom wall
+        if(this.position.y + this.size > this.gameHeight ){
             this.speed.y = -this.speed.y;
-        }
-        //collision with paddle
-        if( detectCollision(this, this.game.paddle) ){
-            this.speed.y = -this.speed.y;
-             
-        }
-        if( detectCollision(this, this.game.secondPaddle) ){
-            this.speed.y = -this.speed.y;
-        }
-        //collision with goals
-        if( detectCollision(this, this.game.firstGoal)){
-            this.secondPlayerScore ++;
-            this.rest2();
-        }
-        if( detectCollision(this, this.game.secondGoal)){
             this.firstPlayerScore ++;
             this.rest1();
         }
+        if( this.position.y < 0 ){
+            this.speed.y = -this.speed.y;
+            this.secondPlayerScore ++;
+            this.rest2();
+        }
+ 
         if(this.secondPlayerScore === 5 ){
             this.game.playerTwoWin = true;
         }else if(this.firstPlayerScore ===5){
             this.game.playerOneWin = true;
         }
+
+        //collision with paddles
+        if (detectCollision(this, this.game.paddle)) {
+            this.speed.y = -this.speed.y;
+            this.position.y = this.game.paddle.position.y - this.size;
+        }
+             
+        
+        if( detectCollision(this, this.game.secondPaddle) ){
+            this.speed.y = -this.speed.y;
+        }
+
 
     }
 }

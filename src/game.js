@@ -1,7 +1,6 @@
 import Paddle from "./paddle.js";
 import inputHandler from "./input.js";
 import Ball from './ball.js';
-import Goal from "./goal.js";
 
 const GAMESTATE = {
     MENU : 0,
@@ -18,16 +17,9 @@ export default class Game{
         this.pitchWidth = 700;
 
         this.gameState = GAMESTATE.MENU;
-        this.paddle = new Paddle(this, {x : this.pitchWidth / 2 , y : this.gameHeight - 100 }, "blue");
-        this.secondPaddle = new Paddle(this, {x : this.pitchWidth / 2, y : 100}, "red"); 
+        this.paddle = new Paddle(this, {x : this.pitchWidth / 2 , y : this.gameHeight - 50 }, "blue");
+        this.secondPaddle = new Paddle(this, {x : this.pitchWidth / 2, y : 50}, "red"); 
         this.ball = new Ball(this);
-        this.firstGoal = new Goal(this,
-            { x : this.pitchWidth / 2 - 93 , y : 3 }, 
-             "white");
-        this.secondGoal = new Goal(
-            this, 
-            { x : this.pitchWidth / 2 -93  ,  y : 590}, 
-            "white");
         this.gameObjects = [];
 
 
@@ -43,7 +35,7 @@ export default class Game{
         if(this.gameState === GAMESTATE.MENU){
             this.gameState = GAMESTATE.RUNNING;
         }
-        this.gameObjects = [this.ball, this.paddle, this.secondPaddle, this.firstGoal, this.secondGoal]
+        this.gameObjects = [this.ball, this.paddle, this.secondPaddle]
     };
 
     update(dt){
@@ -79,7 +71,7 @@ export default class Game{
         //drawing the menu screen
         if(this.gameState === GAMESTATE.MENU){
             ctx.rect(0, 0 ,800, 600);
-            ctx.fillStyle = "#2C3E50"
+            ctx.fillStyle = "#641E16"
             ctx.fill();
             ctx.font = "30px courier";
             ctx.fillStyle = "Whitesmoke";
@@ -90,16 +82,24 @@ export default class Game{
         
         //drawing the game over screen
         if(this.gameState === GAMESTATE.OVER){
+            if(this.playerOneWin){
             ctx.rect(0, 0 ,800, 600);
-            ctx.fillStyle = "black"
+            ctx.fillStyle = "#B03A2E"
             ctx.fill();
             ctx.font = "30px courier";
             ctx.fillStyle = "Whitesmoke";
             ctx.textAlign = " center";
-            if(this.playerOneWin) ctx.fillText("Red is the winner ", this.gameWidth / 2 , this.gameHeight /2 );
-            if(this.playerTwoWin) ctx.fillText("Blue is the winner " , this.gameWidth / 2 , this.gameHeight /2 )
+            ctx.fillText("Red is the winner ", this.gameWidth / 2 , this.gameHeight /2 );
+            }else if(this.playerTwoWin) {
+                ctx.rect(0, 0 ,800, 600);
+            ctx.fillStyle = "#154360"
+            ctx.fill();
+            ctx.font = "30px courier";
+            ctx.fillStyle = "Whitesmoke";
+            ctx.textAlign = " center";
+            ctx.fillText("Blue is the winner " , this.gameWidth / 2 , this.gameHeight /2 )
         }
-
+        }
     };
 
     togglePause(){

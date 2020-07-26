@@ -6,24 +6,16 @@ export default class Paddle {
      this.pitchWidth = game.pitchWidth;
 
      //paddle height and width
-     this.width = 100;
-     this.height = 5;
+     this.width = 150;
+     this.height = 20;
 
      //paddle movement
-     this.maxSpeed = 11;
+     this.maxSpeed = 7;
      this.speed = 0;
 
      this.color = color;
 
    };
-
-   fastMoveRight(){
-        this.speed = this.maxSpeed;
-   }
-
-   fastMoveLeft(){
-        this.speed = -this.maxSpeed;
-   }
 
    moveLeft(){
         this.speed = -this.maxSpeed;
@@ -44,8 +36,8 @@ export default class Paddle {
 
    update(dt){
         this.position.x += this.speed;
-        if(this.position.x < 1) this.position.x = 1;
-        if(this.position.x + this.width > this.pitchWidth) this.position.x = this.pitchWidth - this.width - 1;
+        if(this.position.x < 0) this.position.x = 0;
+        if(this.position.x + this.width > this.pitchWidth) this.position.x = this.pitchWidth - this.width;
    }
 };
 

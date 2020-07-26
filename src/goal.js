@@ -3,7 +3,7 @@ export default class Goal {
 
         this.game = game;
 
-        this.width = 170;
+        this.width = 700;
         this.height = 4;
 
         this.position = position;

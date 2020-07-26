@@ -1,13 +1,7 @@
 export default class inputHandler{
     constructor(game, paddle, secondPaddle){
         document.addEventListener("keydown", (event)=>{
-            switch(event.keyCode){
-                case 38 :
-                    paddle.fastMoveRight();
-                break;
-                case 40 : 
-                    paddle.fastMoveLeft();
-                break;
+            switch(event.keyCode){      
                 case 37: 
                     paddle.moveLeft();
                 break;

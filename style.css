@@ -1,9 +1,9 @@
 body{
-    background-color:#17202A;
+    background-color:#7D6608;
 }
 
 #gameScreen{
-    background-image: url("./img/pitch.jpg");
+    background-image: url("./img/pitch.png");
     background-repeat: no-repeat;
     background-size: 700px 600px;
     margin: 5px;
