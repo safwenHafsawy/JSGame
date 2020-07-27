@@ -10,24 +10,38 @@ export default class Paddle {
      this.height = 20;
 
      //paddle movement
-     this.maxSpeed = 7;
-     this.speed = 0;
+     this.maxSpeed = 10;
+     this.speedSide = 0;
+     this.speedUp = 0;
 
+     //paddle color
      this.color = color;
 
    };
 
+   moveUp(){
+        this.speedUp = -this.maxSpeed;
+   }
+
+   moveDown(){
+        this.speedUp = this.maxSpeed;
+   }
+
    moveLeft(){
-        this.speed = -this.maxSpeed;
+          this.speedSide = -this.maxSpeed;
    };
 
    moveRight(){
-        this.speed = this.maxSpeed;
+     this.speedSide = this.maxSpeed;
+   }; 
+
+   sideStop(){
+        this.speedSide = 0;
    };
 
-   stop(){
-        this.speed = 0;
-   };
+   upStop(){
+        this.speedUp = 0;
+   }
 
    draw(ctx){
         ctx.fillStyle = this.color;
@@ -35,9 +49,9 @@ export default class Paddle {
    }
 
    update(dt){
-        this.position.x += this.speed;
+        this.position.y += this.speedUp;
+        this.position.x += this.speedSide;
         if(this.position.x < 0) this.position.x = 0;
         if(this.position.x + this.width > this.pitchWidth) this.position.x = this.pitchWidth - this.width;
    }
 };
-
